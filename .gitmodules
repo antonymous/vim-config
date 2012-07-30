@@ -46,3 +46,11 @@
 	path = bundle/sparkup
 	url = git://github.com/rstacruz/sparkup.git
 	ignore = dirty
+[submodule "bundle/vim-commentary"]
+	path = bundle/vim-commentary
+	url = git://github.com/tpope/vim-commentary.git
+	ignore = dirty
+[submodule "bundle/vim-git"]
+	path = bundle/vim-git
+	url = git://github.com/tpope/vim-git.git
+	ignore = dirty
