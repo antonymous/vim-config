@@ -144,3 +144,7 @@ else
 endif
 
 nnoremap ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
+
+" syntastic
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_jump=1
