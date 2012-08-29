@@ -54,3 +54,6 @@
 	path = bundle/vim-git
 	url = git://github.com/tpope/vim-git.git
 	ignore = dirty
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
