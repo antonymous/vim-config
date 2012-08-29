@@ -1,4 +1,5 @@
 After cloning:
+
 	# create symlink to .(g)vimrc
 	cd ~/
 	ln -s ~/.vim/.vimrc ~/.vimrc
