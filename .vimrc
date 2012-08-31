@@ -38,10 +38,10 @@ set wildmode=list:longest,full
 
 set scrolloff=3 " begin scrolling N lines earlier
 
-" set keymap=russian-jcukenwin
+set keymap=russian-jcukenwin " keyboard mapping switched with Ctrl+^
 set iminsert=0
 set imsearch=0
-" highlight lCursor guifg=NONE guibg=Cyan
+highlight lCursor guifg=NONE guibg=Cyan
 
 " map ё `
 " map й q
