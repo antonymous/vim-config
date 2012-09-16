@@ -24,6 +24,7 @@ set number " show line numbers
 set foldcolumn=5 " fold column width
 set nowrap " don't wrap long lines
 set encoding=utf-8 " Vim's internal encoding
+set backspace=indent,eol,start
 
 set iskeyword=@,48-57,_,192-255
 
@@ -143,7 +144,9 @@ else
 	colorscheme solarized
 endif
 
-nnoremap ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
+nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
+nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
+nnoremap <silent> ,w :set wrap!<CR>
 
 " syntastic
 let g:syntastic_check_on_open=1
