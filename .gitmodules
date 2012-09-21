@@ -42,10 +42,6 @@
 	path = bundle/vim-ragtag
 	url = git://github.com/tpope/vim-ragtag.git
 	ignore = dirty
-[submodule "bundle/sparkup"]
-	path = bundle/sparkup
-	url = git://github.com/rstacruz/sparkup.git
-	ignore = dirty
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
@@ -60,3 +56,6 @@
 [submodule "bundle/vim-easymotion"]
 	path = bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/zencoding-vim"]
+	path = bundle/zencoding-vim
+	url = git://github.com/mattn/zencoding-vim.git
