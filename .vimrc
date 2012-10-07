@@ -16,7 +16,7 @@ syntax enable
 set cul " cursorline
 set ruler " show cursor position
 set showcmd " show command as we type
-set hlsearch " highlight search
+set nohlsearch " highlight search
 set incsearch " incremental search
 set ignorecase " ignore case while searching
 set smartcase " don't ignore case for UPPERCASE search terms?
