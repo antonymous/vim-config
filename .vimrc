@@ -148,6 +148,9 @@ nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
 nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
 nnoremap <silent> ,w :set wrap!<CR>
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! %!sudo tee > /dev/null %
+
 " syntastic
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_jump=1
