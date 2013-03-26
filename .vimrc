@@ -145,10 +145,27 @@ else
 endif
 
 nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
-nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
+"nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
+"nnoremap <silent> ,r :exec &nu==1 ? 'se nu!' : 'se rnu!'<CR>
 nnoremap <silent> ,w :set wrap!<CR>
 nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
+
+function! NumberToggle()
+	if(&relativenumber == 1)
+		set number
+	else
+		set relativenumber
+	endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+
+:au FocusLost * :set number
+:au FocusGained * :set relativenumber
+
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! %!sudo tee > /dev/null %
