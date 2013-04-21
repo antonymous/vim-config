@@ -147,9 +147,10 @@ endif
 nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
 "nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
 "nnoremap <silent> ,r :exec &nu==1 ? 'se nu!' : 'se rnu!'<CR>
-nnoremap <silent> ,w :set wrap!<CR>
 nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
+nnoremap <silent> <Leader>l :set list!<CR>
+nnoremap <silent> <Leader>w :set wrap!<CR>
 
 function! NumberToggle()
 	if(&relativenumber == 1)
@@ -158,8 +159,7 @@ function! NumberToggle()
 		set relativenumber
 	endif
 endfunc
-
-nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <silent> <Leader>n :call NumberToggle()<cr>
 
 :au FocusLost * :set number
 :au FocusGained * :set relativenumber
