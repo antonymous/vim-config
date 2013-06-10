@@ -21,10 +21,19 @@ set incsearch " incremental search
 set ignorecase " ignore case while searching
 set smartcase " don't ignore case for UPPERCASE search terms?
 set number " show line numbers
-set foldcolumn=5 " fold column width
 set nowrap " don't wrap long lines
 set encoding=utf-8 " Vim's internal encoding
 set backspace=indent,eol,start
+
+set foldcolumn=5 " fold column width
+set foldmethod=syntax
+set foldlevelstart=1
+let xml_syntax_folding=1
+let php_folding=1
+let javaScript_fold=1
+let sh_fold_enabled=1
+let vimsyn_folding='af'
+set foldnestmax=2
 
 set iskeyword=@,48-57,_,192-255
 
