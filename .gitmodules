@@ -22,10 +22,6 @@
 	path = bundle/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
 	ignore = dirty
-[submodule "bundle/vim-matchit"]
-	path = bundle/vim-matchit
-	url = git://github.com/tsaleh/vim-matchit.git
-	ignore = dirty
 [submodule "bundle/vim-repeat"]
 	path = bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
