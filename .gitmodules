@@ -107,3 +107,9 @@
 [submodule "bundle/vim-textobj-parameter"]
 	path = bundle/vim-textobj-parameter
 	url = https://github.com/sgur/vim-textobj-parameter.git
+[submodule "bundle/vimwiki"]
+	path = bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git
+[submodule "bundle/vim-rsi"]
+	path = bundle/vim-rsi
+	url = https://github.com/tpope/vim-rsi.git
