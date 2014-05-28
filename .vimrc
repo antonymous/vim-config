@@ -49,7 +49,9 @@ set iskeyword=@,48-57,_,192-255 " adds cyrillics to keywords
 set iminsert=0
 set imsearch=0
 highlight lCursor guifg=NONE guibg=Cyan
- 
+
+set listchars=eol:$,tab:│→,trail:·
+
 " emacs-keys
 :cnoremap <C-A>		<Home>
 :cnoremap <C-B>		<Left>
@@ -74,7 +76,8 @@ if has('gui_running')
 	if has('win32')
 		set guifont=consolas:h10:cRUSSIAN
 	elseif has('gui_gtk2')
-        set guifont=Powerline\ Consolas\ 11
+        " set guifont=Powerline\ Consolas\ 11
+        set guifont=Terminus\ 15
 	endif
 endif
 
@@ -122,6 +125,7 @@ let g:syntastic_auto_jump=1
 
 " vim-airline
 set laststatus=2
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 0
 
@@ -166,3 +170,13 @@ iab <expr> curdate strftime("%Y-%m-%d")
 
 " stronger encryption algo
 set cm=blowfish
+
+" Fix terminal timeout when pressing escape
+if !has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
