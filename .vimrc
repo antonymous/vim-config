@@ -125,7 +125,6 @@ let g:syntastic_auto_jump=1
 
 " vim-airline
 set laststatus=2
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 0
 
@@ -164,19 +163,10 @@ if has('unnamedplus')
 endif
 
 " insert current date
-nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
+nnoremap <F5> "=strftime("%Y-%m-%d")<CR>
 inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 iab <expr> curdate strftime("%Y-%m-%d")
 
 " stronger encryption algo
 set cm=blowfish
 
-" Fix terminal timeout when pressing escape
-if !has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
-endif

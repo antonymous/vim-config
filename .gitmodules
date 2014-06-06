@@ -22,17 +22,9 @@
 	path = bundle/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
 	ignore = dirty
-[submodule "bundle/matchit.vim"]
-	path = bundle/matchit.vim
-	url = https://github.com/vim-scripts/matchit.zip.git
-	ignore = dirty
 [submodule "bundle/vim-repeat"]
 	path = bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
-	ignore = dirty
-[submodule "bundle/vim-markdown"]
-	path = bundle/vim-markdown
-	url = git://github.com/tpope/vim-markdown.git
 	ignore = dirty
 [submodule "bundle/snipmate.vim"]
 	path = bundle/snipmate.vim
@@ -45,10 +37,6 @@
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
-	ignore = dirty
-[submodule "bundle/vim-git"]
-	path = bundle/vim-git
-	url = git://github.com/tpope/vim-git.git
 	ignore = dirty
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
@@ -113,3 +101,9 @@
 [submodule "bundle/vim-rsi"]
 	path = bundle/vim-rsi
 	url = https://github.com/tpope/vim-rsi.git
+[submodule "bundle/vim-sensible"]
+	path = bundle/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
+[submodule "bundle/vim-polyglot"]
+	path = bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
