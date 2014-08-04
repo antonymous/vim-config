@@ -107,3 +107,15 @@
 [submodule "bundle/vim-polyglot"]
 	path = bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
+[submodule "bundle/vim-easy-align"]
+	path = bundle/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align.git
+[submodule "bundle/vim-pipe"]
+	path = bundle/vim-pipe
+	url = https://github.com/krisajenkins/vim-pipe.git
+[submodule "bundle/vim-phpqa"]
+	path = bundle/vim-phpqa
+	url = https://github.com/joonty/vim-phpqa.git
+[submodule "bundle/eregex.vim"]
+	path = bundle/eregex.vim
+	url = https://github.com/othree/eregex.vim.git

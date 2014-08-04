@@ -157,6 +157,13 @@ for ft_name in keys(ft_stdout_mappings)
     execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write !' . ft_stdout_mappings[ft_name] . '<CR>'
 endfor
 
+let ft_vimpipe_commands = {
+    \'php': 'php',
+    \}
+for ft_name in keys(ft_vimpipe_commands)
+    execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_command="' . ft_vimpipe_commands[ft_name] . '"'
+endfor
+
 " always use clipboard for "+ register
 if has('unnamedplus')
     set clipboard=unnamedplus
@@ -170,3 +177,6 @@ iab <expr> curdate strftime("%Y-%m-%d")
 " stronger encryption algo
 set cm=blowfish
 
+let g:phpqa_messdetector_autorun = 0
+let g:phpqa_codesniffer_autorun = 0
+let g:phpqa_codecoverage_autorun = 0
