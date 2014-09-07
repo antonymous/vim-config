@@ -10,8 +10,7 @@ After cloning:
 	ln -s bundle/sparkup/vim/ftplugin ftplugin
 
 	# init submodules
-	git submodule init
-	git submodule update
+	git submodule update --init
 	
 	# updating all bundle plugins
 	git submodule foreach git pull origin master
