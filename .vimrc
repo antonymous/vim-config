@@ -22,7 +22,7 @@ set smartcase " but don't ignore case for UPPERCASE instances
 set number " show line numbers
 set nowrap " don't wrap long lines
 set backspace=indent,eol,start
-set scrolloff=3 " begin scrolling N lines earlier
+set scrolloff=1 " begin scrolling N lines earlier
 
 syntax enable
 set foldmethod=syntax
@@ -122,6 +122,8 @@ cmap w!! %!sudo tee > /dev/null %
 " syntastic
 let g:syntastic_check_on_open=0
 let g:syntastic_auto_jump=1
+map <Leader>s :SyntasticToggleMode<CR>
+map <silent> <Leader>e :Errors<CR>
 
 " vim-airline
 set laststatus=2
