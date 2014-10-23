@@ -182,3 +182,8 @@ set cm=blowfish
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
+
+" incsearch.vim
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
