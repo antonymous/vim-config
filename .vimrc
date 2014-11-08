@@ -22,6 +22,7 @@ set incsearch " incremental search
 set ignorecase " ignore case while searching
 set smartcase " but don't ignore case for UPPERCASE instances
 set number " show line numbers
+set relativenumber
 set nowrap " don't wrap long lines
 set backspace=indent,eol,start
 set scrolloff=1 " begin scrolling N lines earlier
