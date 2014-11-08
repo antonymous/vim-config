@@ -11,9 +11,12 @@ After cloning:
 
 	# init submodules
 	git submodule update --init
+
+To update plugins run:
 	
-	# updating all bundle plugins
 	git submodule foreach git pull origin master
+	
+Use `:Helptags` command to generate help tags for all bundled plugins after cloning or updating.
 
 See [Synchronizing plugins with git submodules and pathogen](http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/).
 
