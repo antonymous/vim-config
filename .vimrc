@@ -5,9 +5,11 @@ map ,v :vsp $MYVIMRC<CR>
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 " Pathogen
-call pathogen#infect()
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+try
+    runtime bundle/vim-pathogen/autoload/pathogen.vim
+    call pathogen#infect()
+catch
+endtry
 
 filetype plugin indent on
 
