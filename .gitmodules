@@ -116,9 +116,6 @@
 [submodule "bundle/vim-phpqa"]
 	path = bundle/vim-phpqa
 	url = https://github.com/joonty/vim-phpqa.git
-[submodule "bundle/eregex.vim"]
-	path = bundle/eregex.vim
-	url = https://github.com/othree/eregex.vim.git
 [submodule "bundle/vim-startify"]
 	path = bundle/vim-startify
 	url = https://github.com/mhinz/vim-startify.git

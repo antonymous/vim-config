@@ -1,13 +1,9 @@
 After cloning:
 
 	# create symlink to .(g)vimrc
-	cd ~/
+	cd ~
 	ln -s ~/.vim/.vimrc ~/.vimrc
 	ln -s ~/.vim/.gvimrc ~/.gvimrc
-
-	# create symlink for ftplugin
-	cd ~/.vim
-	ln -s bundle/sparkup/vim/ftplugin ftplugin
 
 	# init submodules
 	git submodule update --init
