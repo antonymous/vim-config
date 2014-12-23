@@ -22,10 +22,31 @@ set incsearch " incremental search
 set ignorecase " ignore case while searching
 set smartcase " but don't ignore case for UPPERCASE instances
 set number " show line numbers
-set relativenumber
 set nowrap " don't wrap long lines
 set backspace=indent,eol,start
 set scrolloff=1 " begin scrolling N lines earlier
+
+
+if (has("relativenumber"))
+    set relativenumber
+
+    :au FocusGained * :set relativenumber
+    :au FocusLost * :set norelativenumber
+
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertLeave * :set relativenumber
+
+    " https://github.com/jeffkreeftmeijer/vim-numbertoggle
+    function! NumberToggle()
+        if(&relativenumber == 1)
+            set norelativenumber
+        else
+            set relativenumber
+        endif
+    endfunc
+
+    nnoremap <silent> <Leader>n :call NumberToggle()<cr>
+endif
 
 syntax enable
 set foldmethod=syntax
@@ -102,23 +123,6 @@ nnoremap <silent> ,O O<ESC>
 nnoremap <silent> <Leader>l :set list!<CR>
 nnoremap <silent> <Leader>w :set wrap!<CR>
 
-" https://github.com/jeffkreeftmeijer/vim-numbertoggle
-function! NumberToggle()
-	if(&relativenumber == 1)
-        set norelativenumber
-	else
-		set relativenumber
-	endif
-endfunc
-
-nnoremap <silent> <Leader>n :call NumberToggle()<cr>
-
-:au FocusGained * :set relativenumber
-:au FocusLost * :set norelativenumber
-
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
-
 " Allow saving of files as sudo
 cmap w!! %!sudo tee > /dev/null %
 
@@ -182,7 +186,7 @@ inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 iab <expr> curdate strftime("%Y-%m-%d")
 
 " stronger encryption algo
-set cm=blowfish
+" set cm=blowfish
 
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
