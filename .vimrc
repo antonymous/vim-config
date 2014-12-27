@@ -186,14 +186,15 @@ inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 iab <expr> curdate strftime("%Y-%m-%d")
 
 " stronger encryption algo
-" set cm=blowfish
+if has('blowfish')
+    set cm=blowfish
+endif
 
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
 
 " incsearch.vim
-set hlsearch
 let g:incsearch#auto_nohlsearch = 1
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
