@@ -205,3 +205,8 @@ map *  <Plug>(incsearch-nohl-*)
 map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
+
+" vimwiki
+let wiki_1 = {}
+let wiki_1.path = '~/Dropbox/_data/vimwiki/'
+let g:vimwiki_list = [wiki_1]
