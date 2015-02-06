@@ -27,7 +27,7 @@ set backspace=indent,eol,start
 set scrolloff=1 " begin scrolling N lines earlier
 
 
-if (has("relativenumber"))
+if has('relativenumber')
     set relativenumber
 
     :au FocusGained * :set relativenumber
