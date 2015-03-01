@@ -27,7 +27,7 @@ set backspace=indent,eol,start
 set scrolloff=1 " begin scrolling N lines earlier
 
 
-if has('relativenumber')
+if exists('&relativenumber')
     set relativenumber
 
     :au FocusGained * :set relativenumber
@@ -105,15 +105,10 @@ if has('gui_running')
 	endif
 endif
 
-" Solarized theme
-" if has('gui_running')
-"     set background=light
-" 	colorscheme solarized
-" else
-	set t_Co=16
-	set background=dark
-	colorscheme solarized
-" endif
+set background=dark
+if exists("g:solarized_termcolors")
+    colorscheme solarized
+endif
 
 nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
 "nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
