@@ -106,9 +106,7 @@ if has('gui_running')
 endif
 
 set background=dark
-if exists("g:solarized_termcolors")
-    colorscheme solarized
-endif
+silent! colorscheme solarized
 
 nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
 "nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
