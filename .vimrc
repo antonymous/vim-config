@@ -141,7 +141,7 @@ let ft_stdout_mappings = {
       \'sh': 'sh',
       \'sml': 'sml',
       \'spice': 'ngspice',
-      \'ledger': 'ledger -f $LEDGER_FILE -s bal ass -reimb'
+      \'ledger': 'ledger -s bal ass -reimb'
       \}
 for ft_name in keys(ft_stdout_mappings)
     execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write !' . ft_stdout_mappings[ft_name] . '<CR>'
@@ -149,7 +149,7 @@ endfor
 
 let ft_vimpipe_commands = {
     \'php': 'php',
-    \'ledger': 'ledger -f $LEDGER_FILE -s bal ass -reimb'
+    \'ledger': 'ledger -s bal ass -reimb'
     \}
 for ft_name in keys(ft_vimpipe_commands)
     execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_command="' . ft_vimpipe_commands[ft_name] . '"'
@@ -178,3 +178,10 @@ let g:phpqa_codecoverage_autorun = 0
 let wiki_1 = {}
 let wiki_1.path = '~/Dropbox/_data/vimwiki/'
 let g:vimwiki_list = [wiki_1]
+
+" vim-ledger
+let g:ledger_detailed_first = 1
+let g:ledger_fillstring = '_'
+let g:ledger_fold_blanks = 1
+nnoremap <silent> <Leader>c :call ledger#transaction_state_toggle(line('.'), ' *?!')<CR>
+nnoremap <silent> <Leader>d :call ledger#transaction_date_set(line('.'), "primary")<CR>
