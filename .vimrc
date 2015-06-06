@@ -11,21 +11,12 @@ try
 catch
 endtry
 
-filetype plugin indent on
-
-set encoding=utf-8 " Vim's internal encoding
 set cul " cursorline
-set ruler " show cursor position
-set showcmd " show command as we type
 set nohlsearch " highlight search
-set incsearch " incremental search
 set ignorecase " ignore case while searching
 set smartcase " but don't ignore case for UPPERCASE instances
 set number " show line numbers
 set nowrap " don't wrap long lines
-set backspace=indent,eol,start
-set scrolloff=1 " begin scrolling N lines earlier
-
 
 if exists('&relativenumber')
     set relativenumber
@@ -48,7 +39,6 @@ if exists('&relativenumber')
     nnoremap <silent> <Leader>n :call NumberToggle()<cr>
 endif
 
-syntax enable
 set foldmethod=syntax
 set foldcolumn=3 " fold column width
 set foldlevelstart=2
@@ -61,11 +51,9 @@ let vimsyn_folding='af'
 
 set tabstop=4 " number of spaces which equal <Tab>
 set shiftwidth=4 "number of spaces for indent
-set smarttab " use 'shiftwidth' at the start of the line instead 'tabstop'
 set expandtab " use spaces instead of tab
 set smartindent " do smart autoindenting when starting a new line
 
-set wildmenu " show command completion menu
 set wildmode=list:longest,full
 
 set keymap=russian-jcukenwin " keyboard mapping switched with Ctrl+^
@@ -126,7 +114,6 @@ map <Leader>s :SyntasticToggleMode<CR>
 map <silent> <Leader>e :Errors<CR>
 
 " vim-airline
-set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 0
 
@@ -186,18 +173,6 @@ endif
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
-
-" incsearch.vim
-let g:incsearch#auto_nohlsearch = 1
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 
 " vimwiki
 let wiki_1 = {}
