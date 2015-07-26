@@ -1,8 +1,7 @@
 set nocp " non-Vi-compatible mode
 
-map ,v :vsp $MYVIMRC<CR>
-" autorefresh .vimrc on change
-autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+runtime! plugin/sensible.vim
+runtime! plugin/opinion.vim
 
 " Pathogen
 try
@@ -11,12 +10,27 @@ try
 catch
 endtry
 
-set cul " cursorline
+" vim-opinion overrides
 set nohlsearch " highlight search
-set ignorecase " ignore case while searching
-set smartcase " but don't ignore case for UPPERCASE instances
-set number " show line numbers
-set nowrap " don't wrap long lines
+set nogdefault
+set tabstop=4 " number of spaces which equal <Tab>
+set shiftwidth=4 "number of spaces for indent
+set swapfile
+set scrolloff=1
+
+set cul " cursorline
+set smartindent " do smart autoindenting when starting a new line
+set foldcolumn=3 " fold column width
+set foldlevelstart=2
+let xml_syntax_folding=1
+let php_folding=1
+let javaScript_fold=1
+let sh_fold_enabled=1
+let vimsyn_folding='af'
+
+map ,v :vsp $MYVIMRC<CR>
+" autorefresh .vimrc on change
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 
 if exists('&relativenumber')
     set relativenumber
@@ -38,23 +52,6 @@ if exists('&relativenumber')
 
     nnoremap <silent> <Leader>n :call NumberToggle()<cr>
 endif
-
-set foldmethod=syntax
-set foldcolumn=3 " fold column width
-set foldlevelstart=2
-set foldnestmax=2
-let xml_syntax_folding=1
-let php_folding=1
-let javaScript_fold=1
-let sh_fold_enabled=1
-let vimsyn_folding='af'
-
-set tabstop=4 " number of spaces which equal <Tab>
-set shiftwidth=4 "number of spaces for indent
-set expandtab " use spaces instead of tab
-set smartindent " do smart autoindenting when starting a new line
-
-set wildmode=list:longest,full
 
 set keymap=russian-jcukenwin " keyboard mapping switched with Ctrl+^
 set iskeyword=@,48-57,_,192-255 " adds cyrillics to keywords
@@ -164,11 +161,6 @@ endif
 nnoremap <F5> "=strftime("%Y-%m-%d")<CR>
 inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 iab <expr> curdate strftime("%Y-%m-%d")
-
-" stronger encryption algo
-if has('blowfish')
-    set cm=blowfish
-endif
 
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
