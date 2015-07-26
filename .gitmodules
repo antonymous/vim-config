@@ -22,10 +22,6 @@
 	path = bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
 	ignore = dirty
-[submodule "bundle/snipmate.vim"]
-	path = bundle/snipmate.vim
-	url = git://github.com/msanders/snipmate.vim.git
-	ignore = dirty
 [submodule "bundle/vim-ragtag"]
 	path = bundle/vim-ragtag
 	url = git://github.com/tpope/vim-ragtag.git
@@ -124,3 +120,9 @@
 [submodule "bundle/vim-opinion"]
 	path = bundle/vim-opinion
 	url = https://github.com/rstacruz/vim-opinion.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "bundle/vim-snippets"]
+	path = bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
