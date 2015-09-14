@@ -182,3 +182,11 @@ let g:ledger_fillstring = '_'
 let g:ledger_fold_blanks = 1
 nnoremap <silent> <Leader>c :call ledger#transaction_state_toggle(line('.'), ' *?!')<CR>
 nnoremap <silent> <Leader>d :call ledger#transaction_date_set(line('.'), "primary")<CR>
+
+" vim-go
+autocmd FileType go nmap <C-\> :GoRun %<Enter>
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
