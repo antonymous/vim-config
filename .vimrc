@@ -143,6 +143,11 @@ let ft_stdout_mappings = {
 for ft_name in keys(ft_stdout_mappings)
     execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write !' . ft_stdout_mappings[ft_name] . '<CR>'
 endfor
+let ft_execute_mappings = {
+      \}
+for ft_name in keys(ft_execute_mappings)
+    execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write \| !' . ft_execute_mappings[ft_name] . '<CR>'
+endfor
 
 let ft_vimpipe_commands = {
     \'php': 'php',
