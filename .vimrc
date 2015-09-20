@@ -1,7 +1,7 @@
 set nocp " non-Vi-compatible mode
 
-runtime! plugin/sensible.vim
-runtime! plugin/opinion.vim
+runtime! bundle/vim-sensible/plugin/sensible.vim
+runtime! bundle/vim-opinion/plugin/opinion.vim
 
 " Pathogen
 try
