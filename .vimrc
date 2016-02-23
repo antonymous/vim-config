@@ -62,32 +62,32 @@ highlight lCursor guifg=NONE guibg=Cyan
 set listchars=eol:$,tab:│→,trail:·
 
 " emacs-keys
-:cnoremap <C-A>		<Home>
-:cnoremap <C-B>		<Left>
-:cnoremap <C-D>		<Del>
-:cnoremap <C-E>		<End>
-:cnoremap <C-F>		<Right>
-:cnoremap <C-N>		<Down>
-:cnoremap <C-P>		<Up>
-:cnoremap <Esc><C-B>	<S-Left>
-:cnoremap <Esc><C-F>	<S-Right>
+:cnoremap <C-A>      <Home>
+:cnoremap <C-B>      <Left>
+:cnoremap <C-D>      <Del>
+:cnoremap <C-E>      <End>
+:cnoremap <C-F>      <Right>
+:cnoremap <C-N>      <Down>
+:cnoremap <C-P>      <Up>
+:cnoremap <Esc><C-B> <S-Left>
+:cnoremap <Esc><C-F> <S-Right>
 
-if has('win32')	
-	" autoformat XML with HTML Tidy 
-	au FileType xml exe ":silent 1,$!tidy -q -i -xml"
+if has('win32')
+    " autoformat XML with HTML Tidy
+    au FileType xml exe ":silent 1,$!tidy -q -i -xml"
 
-	" select xml text to format and hit ,x
-	vmap ,x :!tidy -q -i -xml<CR>
+    " select xml text to format and hit ,x
+    vmap ,x :!tidy -q -i -xml<CR>
 endif
 
 " Font settings for GUI
 if has('gui_running')
-	if has('win32')
-		set guifont=consolas:h10:cRUSSIAN
-	elseif has('gui_gtk2')
+    if has('win32')
+        set guifont=consolas:h10:cRUSSIAN
+    elseif has('gui_gtk2')
         " set guifont=Powerline\ Consolas\ 11
         set guifont=Terminus\ 15
-	endif
+    endif
 endif
 
 set background=dark
@@ -138,7 +138,7 @@ let ft_stdout_mappings = {
       \'sh': 'sh',
       \'sml': 'sml',
       \'spice': 'ngspice',
-      \'ledger': 'ledger -s bal ass -reimb'
+      \'ledger': 'ledger balance ^assets --no-color'
       \}
 for ft_name in keys(ft_stdout_mappings)
     execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write !' . ft_stdout_mappings[ft_name] . '<CR>'
@@ -151,7 +151,7 @@ endfor
 
 let ft_vimpipe_commands = {
     \'php': 'php',
-    \'ledger': 'ledger -s bal ass -reimb'
+    \'ledger': 'ledger balance ^assets --no-color'
     \}
 for ft_name in keys(ft_vimpipe_commands)
     execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_command="' . ft_vimpipe_commands[ft_name] . '"'
@@ -182,6 +182,7 @@ let g:ledger_fillstring = '_'
 let g:ledger_fold_blanks = 1
 nnoremap <silent> <Leader>c :call ledger#transaction_state_toggle(line('.'), ' *?!')<CR>
 nnoremap <silent> <Leader>d :call ledger#transaction_date_set(line('.'), "primary")<CR>
+autocmd FileType ledger autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " vim-go
 autocmd FileType go nmap <C-\> :GoRun %<Enter>
@@ -190,3 +191,5 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+" vim: sw=4 ts=4 et
