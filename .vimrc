@@ -1,3 +1,5 @@
+" vim: sw=4 ts=4 et
+
 set nocp " non-Vi-compatible mode
 
 runtime! bundle/vim-sensible/plugin/sensible.vim
@@ -11,12 +13,18 @@ catch
 endtry
 
 " vim-opinion overrides
+" Search
 set nohlsearch " highlight search
 set nogdefault
+" Tabs
 set tabstop=4 " number of spaces which equal <Tab>
 set shiftwidth=4 "number of spaces for indent
+" Backups
 set swapfile
+" Hud and status info
 set scrolloff=1
+
+" set showbreak=⤷\ 
 
 set cul " cursorline
 set smartindent " do smart autoindenting when starting a new line
@@ -62,15 +70,15 @@ highlight lCursor guifg=NONE guibg=Cyan
 set listchars=eol:$,tab:│→,trail:·
 
 " emacs-keys
-:cnoremap <C-A>      <Home>
-:cnoremap <C-B>      <Left>
-:cnoremap <C-D>      <Del>
-:cnoremap <C-E>      <End>
-:cnoremap <C-F>      <Right>
-:cnoremap <C-N>      <Down>
-:cnoremap <C-P>      <Up>
-:cnoremap <Esc><C-B> <S-Left>
-:cnoremap <Esc><C-F> <S-Right>
+" :cnoremap <C-A>      <Home>
+" :cnoremap <C-B>      <Left>
+" :cnoremap <C-D>      <Del>
+" :cnoremap <C-E>      <End>
+" :cnoremap <C-F>      <Right>
+" :cnoremap <C-N>      <Down>
+" :cnoremap <C-P>      <Up>
+" :cnoremap <Esc><C-B> <S-Left>
+" :cnoremap <Esc><C-F> <S-Right>
 
 if has('win32')
     " autoformat XML with HTML Tidy
@@ -93,13 +101,12 @@ endif
 set background=dark
 silent! colorscheme solarized
 
-nnoremap <silent> ,l :w <BAR> !lessc % > %:t:r.css<CR><space>
 "nnoremap <silent> ,r :exec &nu==&rnu? 'se nu!' : 'se rnu!'<CR>
 "nnoremap <silent> ,r :exec &nu==1 ? 'se nu!' : 'se rnu!'<CR>
 nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
 nnoremap <silent> <Leader>l :set list!<CR>
-nnoremap <silent> <Leader>w :set wrap!<CR>
+nnoremap <silent> <Leader>w :set wrap! linebreak!<CR>
 
 " Allow saving of files as sudo
 cmap w!! %!sudo tee > /dev/null %
@@ -107,12 +114,13 @@ cmap w!! %!sudo tee > /dev/null %
 " syntastic
 let g:syntastic_check_on_open=0
 let g:syntastic_auto_jump=1
+let g:syntastic_php_phpcs_args='--standard=PSR2'
 map <Leader>s :SyntasticToggleMode<CR>
 map <silent> <Leader>e :Errors<CR>
 
 " vim-airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 0
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=0
 
 " Signify
 let g:signify_vcs_list=['git']
@@ -125,7 +133,6 @@ let ft_stdout_mappings = {
       \'applescript': 'osascript',
       \'bash': 'bash',
       \'bc': 'bc',
-      \'haskell': 'runghc',
       \'javascript': 'node',
       \'lisp': 'sbcl',
       \'nodejs': 'node',
@@ -149,18 +156,31 @@ for ft_name in keys(ft_execute_mappings)
     execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write \| !' . ft_execute_mappings[ft_name] . '<CR>'
 endfor
 
+" vim-pipe
+let g:vimpipe_silent=1
 let ft_vimpipe_commands = {
+    \'billing-docker': "docker exec -i billing_db mongo --quiet billing",
+    \'billing-dev': "ssh dev-billing 'cat - | mongo --quiet billing'",
+    \'billing': "ssh billing 'cat - | mongo --quiet billing'",
     \'php': 'php',
     \'ledger': 'ledger balance ^assets --no-color'
     \}
 for ft_name in keys(ft_vimpipe_commands)
     execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_command="' . ft_vimpipe_commands[ft_name] . '"'
 endfor
+let ft_vimpipe_filetypes = {
+    \'billing-docker': 'json',
+    \'billing-dev': 'json',
+    \'billing': 'json',
+    \}
+for ft_name in keys(ft_vimpipe_filetypes)
+    execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_filetype="' . ft_vimpipe_filetypes[ft_name] . '"'
+endfor
 
-" always use clipboard for "+ register
-if has('unnamedplus')
-    set clipboard=unnamedplus
-endif
+" use "+ register for clipboard also
+" if has('unnamedplus')
+"     set clipboard=unnamedplus
+" endif
 
 " insert current date
 nnoremap <F5> "=strftime("%Y-%m-%d")<CR>
@@ -175,6 +195,7 @@ let g:phpqa_codecoverage_autorun = 0
 let wiki_1 = {}
 let wiki_1.path = '~/Dropbox/_data/vimwiki/'
 let g:vimwiki_list = [wiki_1]
+let g:vimwiki_folding = 'expr'
 
 " vim-ledger
 let g:ledger_detailed_first = 1
@@ -192,4 +213,12 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-" vim: sw=4 ts=4 et
+" Haskell - ghc-mod
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
+
+" Haskell - hdevtools
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
