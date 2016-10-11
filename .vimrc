@@ -12,6 +12,16 @@ try
 catch
 endtry
 
+" vim-opinion master branch changes
+if has('linebreak')
+  try
+    set breakindent "bri:   visually indent wrapped lines
+    let &showbreak='⤷ '
+  catch /E518:/
+    " Unknown option: breakindent
+  endtry
+endif
+
 " vim-opinion overrides
 " Search
 set nohlsearch " highlight search
@@ -23,8 +33,8 @@ set shiftwidth=4 "number of spaces for indent
 set swapfile
 " Hud and status info
 set scrolloff=1
-
-" set showbreak=⤷\ 
+" Programming
+set cinoptions=l1,j1,J1
 
 set cul " cursorline
 set smartindent " do smart autoindenting when starting a new line
@@ -159,9 +169,6 @@ endfor
 " vim-pipe
 let g:vimpipe_silent=1
 let ft_vimpipe_commands = {
-    \'billing-docker': "docker exec -i billing_db mongo --quiet billing",
-    \'billing-dev': "ssh dev-billing 'cat - | mongo --quiet billing'",
-    \'billing': "ssh billing 'cat - | mongo --quiet billing'",
     \'php': 'php',
     \'ledger': 'ledger balance ^assets --no-color'
     \}
@@ -169,9 +176,6 @@ for ft_name in keys(ft_vimpipe_commands)
     execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_command="' . ft_vimpipe_commands[ft_name] . '"'
 endfor
 let ft_vimpipe_filetypes = {
-    \'billing-docker': 'json',
-    \'billing-dev': 'json',
-    \'billing': 'json',
     \}
 for ft_name in keys(ft_vimpipe_filetypes)
     execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_filetype="' . ft_vimpipe_filetypes[ft_name] . '"'
@@ -222,3 +226,10 @@ map <silent> te :GhcModTypeClear<CR>
 " Haskell - hdevtools
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+
+" MongoDB clients
+au FileType billing let b:vimpipe_command="ssh billing 'cat - | mongo billing --quiet'"
+au FileType billing-dev let b:vimpipe_command="ssh dev-billing 'cat - | mongo billing --quiet'"
+au FileType billing-docker let b:vimpipe_command="docker exec -i billing_db mongo --quiet billing"
+au FileType billing,billing-dev,billing-docker set syntax=javascript ts=2 sw=2 et
+    \| let b:vimpipe_filetype="json"
