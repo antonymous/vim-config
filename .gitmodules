@@ -118,18 +118,15 @@
 [submodule "bundle/ghcmod-vim"]
 	path = bundle/ghcmod-vim
 	url = https://github.com/eagletmt/ghcmod-vim.git
-	branch = master
 [submodule "bundle/vimproc.vim"]
 	path = bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-	branch = master
 [submodule "bundle/vim-airline-themes"]
 	path = bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule "bundle/vim-hdevtools"]
 	path = bundle/vim-hdevtools
 	url = https://github.com/bitc/vim-hdevtools.git
-	branch = master
 [submodule "bundle/vim-scriptease"]
 	path = bundle/vim-scriptease
 	url = git://github.com/tpope/vim-scriptease.git
@@ -139,4 +136,3 @@
 [submodule "bundle/vim-speeddating"]
 	path = bundle/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating
-	ignore = dirty
