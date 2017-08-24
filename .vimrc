@@ -1,28 +1,32 @@
-" vim: sw=4 ts=4 et
+" vim: sw=4 ts=4 et fdm=marker
 
 set nocp " non-Vi-compatible mode
 
+" sensible/opinion {{{1
 runtime! bundle/vim-sensible/plugin/sensible.vim
 runtime! bundle/vim-opinion/plugin/opinion.vim
+" }}}
 
-" Pathogen
+" Pathogen {{{1
 try
     runtime bundle/vim-pathogen/autoload/pathogen.vim
     call pathogen#infect()
 catch
 endtry
+" }}}
 
-" vim-opinion master branch changes
+" vim-opinion master branch changes {{{1
 if has('linebreak')
   try
     set breakindent "bri:   visually indent wrapped lines
-    let &showbreak='⤷ '
+    let &showbreak='⤷  '
   catch /E518:/
     " Unknown option: breakindent
   endtry
 endif
+" }}}
 
-" vim-opinion overrides
+" vim-opinion overrides {{{
 " Search
 set nohlsearch " highlight search
 set nogdefault
@@ -35,6 +39,7 @@ set swapfile
 set scrolloff=1
 " Programming
 set cinoptions=l1,j1,J1
+" }}}
 
 set cul " cursorline
 set smartindent " do smart autoindenting when starting a new line
@@ -117,16 +122,26 @@ nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
 nnoremap <silent> <Leader>l :set list!<CR>
 nnoremap <silent> <Leader>w :set wrap! linebreak!<CR>
+nnoremap Y y$
+cnoremap <M-C-n> <Down>
+cnoremap <M-C-p> <Up>
+
+" Disable Q (Command Shell Mode) {{{
+    nnoremap Q <Nop>
+    nnoremap gq <Nop>
+    nnoremap q: <Nop>
+" }}}
 
 " Allow saving of files as sudo
 cmap w!! %!sudo tee > /dev/null %
 
-" syntastic
+" syntastic {{{
 let g:syntastic_check_on_open=0
 let g:syntastic_auto_jump=1
 let g:syntastic_php_phpcs_args='--standard=PSR2'
 map <Leader>s :SyntasticToggleMode<CR>
 map <silent> <Leader>e :Errors<CR>
+" }}}
 
 " vim-airline
 let g:airline_powerline_fonts=1
@@ -166,7 +181,7 @@ for ft_name in keys(ft_execute_mappings)
     execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write \| !' . ft_execute_mappings[ft_name] . '<CR>'
 endfor
 
-" vim-pipe
+" vim-pipe {{{
 let g:vimpipe_silent=1
 let ft_vimpipe_commands = {
     \'php': 'php',
@@ -180,6 +195,7 @@ let ft_vimpipe_filetypes = {
 for ft_name in keys(ft_vimpipe_filetypes)
     execute 'autocmd FileType ' . ft_name . ' let b:vimpipe_filetype="' . ft_vimpipe_filetypes[ft_name] . '"'
 endfor
+" }}}
 
 " use "+ register for clipboard also
 " if has('unnamedplus')
@@ -191,45 +207,55 @@ nnoremap <F5> "=strftime("%Y-%m-%d")<CR>
 inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 iab <expr> curdate strftime("%Y-%m-%d")
 
+" phpqa {{{
 let g:phpqa_messdetector_autorun = 0
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
+" }}}
 
-" vimwiki
+" vimwiki {{{
 let wiki_1 = {}
 let wiki_1.path = '~/Dropbox/_data/vimwiki/'
 let g:vimwiki_list = [wiki_1]
 let g:vimwiki_folding = 'expr'
+" }}}
 
-" vim-ledger
+" vim-ledger {{{
 let g:ledger_detailed_first = 1
 let g:ledger_fillstring = '_'
 let g:ledger_fold_blanks = 1
 nnoremap <silent> <Leader>c :call ledger#transaction_state_toggle(line('.'), ' *?!')<CR>
 nnoremap <silent> <Leader>d :call ledger#transaction_date_set(line('.'), "primary")<CR>
 autocmd FileType ledger autocmd BufWritePre <buffer> :%s/\s\+$//e
+" }}}
 
-" vim-go
+" vim-go {{{
 autocmd FileType go nmap <C-\> :GoRun %<Enter>
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+" }}}
 
-" Haskell - ghc-mod
+" Haskell {{{1
+" ghc-mod {{{2
 map <silent> tw :GhcModTypeInsert<CR>
 map <silent> ts :GhcModSplitFunCase<CR>
 map <silent> tq :GhcModType<CR>
 map <silent> te :GhcModTypeClear<CR>
+" }}}
 
-" Haskell - hdevtools
+" hdevtools {{{2
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+" }}}
+"}}}
 
-" MongoDB clients
+" MongoDB clients {{{
 au FileType billing let b:vimpipe_command="ssh billing 'cat - | mongo billing --quiet'"
 au FileType billing-dev let b:vimpipe_command="ssh dev-billing 'cat - | mongo billing --quiet'"
 au FileType billing-docker let b:vimpipe_command="docker exec -i billing_db mongo --quiet billing"
 au FileType billing,billing-dev,billing-docker set syntax=javascript ts=2 sw=2 et
     \| let b:vimpipe_filetype="json"
+" }}}
