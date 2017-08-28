@@ -50,6 +50,8 @@ let php_folding=1
 let javaScript_fold=1
 let sh_fold_enabled=1
 let vimsyn_folding='af'
+" let loaded_matchparen=1
+" "hi MatchParen guifg=NONE
 
 map ,v :vsp $MYVIMRC<CR>
 " autorefresh .vimrc on change
@@ -256,6 +258,13 @@ au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 au FileType billing let b:vimpipe_command="ssh billing 'cat - | mongo billing --quiet'"
 au FileType billing-dev let b:vimpipe_command="ssh dev-billing 'cat - | mongo billing --quiet'"
 au FileType billing-docker let b:vimpipe_command="docker exec -i billing_db mongo --quiet billing"
-au FileType billing,billing-dev,billing-docker set syntax=javascript ts=2 sw=2 et
-    \| let b:vimpipe_filetype="json"
+au FileType billing,billing-dev,billing-docker set syntax=javascript ts=2 sw=2 et |
+    \ let b:vimpipe_filetype="json" |
+    \ execute "normal iDBQuery.shellBatchSize=300\<CR>\<Esc>"
+" }}}
+
+" Clojure {{{
+au FileType clojure RainbowParenthesesToggle
+au FileType clojure RainbowParenthesesLoadRound
+au FileType clojure nnoremap <buffer> <silent> <C-\> :%Eval<CR>
 " }}}
