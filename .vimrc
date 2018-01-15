@@ -2,6 +2,14 @@
 
 set nocp " non-Vi-compatible mode
 
+" workaround for https://github.com/vim/vim/issues/1671
+if has("unix")
+  let s:uname = system("echo -n \"$(uname)\"")
+  if !v:shell_error && s:uname == "Linux"
+    set t_BE=
+  endif
+endif
+
 " sensible/opinion {{{
 runtime! bundle/vim-sensible/plugin/sensible.vim
 runtime! bundle/vim-opinion/plugin/opinion.vim
@@ -308,4 +316,9 @@ hi link GitGutterAdd DiffAdd
 hi link GitGutterChange DiffChange
 hi link GitGutterDelete DiffDelete
 hi link GitGutterChangeDelete DiffChange
+"}}}
+
+" ctrl-p"{{{
+map ,b :CtrlPBuffer<CR>
+map ,f :CtrlP<CR>
 "}}}
