@@ -99,17 +99,12 @@ set imsearch=0
 
 set listchars=eol:$,tab:│→,trail:·
 
-" emacs-keys (superseeded by vim-rsi)"{{{
-" :cnoremap <C-A>      <Home>
-" :cnoremap <C-B>      <Left>
-" :cnoremap <C-D>      <Del>
-" :cnoremap <C-E>      <End>
-" :cnoremap <C-F>      <Right>
-" :cnoremap <C-N>      <Down>
-" :cnoremap <C-P>      <Up>
-" :cnoremap <Esc><C-B> <S-Left>
-" :cnoremap <Esc><C-F> <S-Right>
-"}}}
+set splitbelow splitright " Open new split panes to right and bottom, which feels more natural
+
+set nojoinspaces " Use one space, not two, after punctuation.
+
+set timeoutlen=1200 " A little bit more time for macros
+set ttimeoutlen=50  " Make Esc work faster
 
 " Font settings for GUI"{{{
 if has('gui_running')
@@ -120,6 +115,18 @@ if has('gui_running')
     set guifont=Terminus\ 15
   endif
 endif
+"}}}
+
+" emacs-keys (superseeded by vim-rsi)"{{{
+" :cnoremap <C-A>      <Home>
+" :cnoremap <C-B>      <Left>
+" :cnoremap <C-D>      <Del>
+" :cnoremap <C-E>      <End>
+" :cnoremap <C-F>      <Right>
+" :cnoremap <C-N>      <Down>
+" :cnoremap <C-P>      <Up>
+" :cnoremap <Esc><C-B> <S-Left>
+" :cnoremap <Esc><C-F> <S-Right>
 "}}}
 
 " mappings"{{{
@@ -137,11 +144,18 @@ cnoremap <M-C-p> <Up>
 
 " Allow saving of files as sudo
 cmap w!! %!sudo tee > /dev/null %
-"}}}
 
-" Disable Q (Command Shell Mode)"{{{
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" Disable Ex-mode
 nnoremap Q <Nop>
-nnoremap gq <Nop>
+nnoremap gQ <Nop>
+
+" Prevent accidental opening of Command-line window
 nnoremap q: <Nop>
 "}}}
 
@@ -321,4 +335,8 @@ hi link GitGutterChangeDelete DiffChange
 " ctrl-p"{{{
 map ,b :CtrlPBuffer<CR>
 map ,f :CtrlP<CR>
+"}}}
+
+" Mundo"{{{
+let g:mundo_preview_bottom = 1
 "}}}
