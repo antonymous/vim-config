@@ -64,7 +64,7 @@ endtry
 set background=dark
 silent! colorscheme solarized
 
-hi MatchParen ctermfg=NONE guifg=NONE
+hi MatchParen ctermfg=NONE guifg=NONE ctermbg=NONE guibg=NONE
 hi CursorLineNr cterm=bold ctermbg=0 ctermfg=14 gui=bold guibg=#073642 guifg=#93a1a1
 "hi lCursor guifg=NONE guibg=Cyan
 "}}}
@@ -111,8 +111,7 @@ if has('gui_running')
   if has('win32')
     set guifont=consolas:h10:cRUSSIAN
   elseif has('gui_gtk2')
-    " set guifont=Powerline\ Consolas\ 11
-    set guifont=Terminus\ 15
+    set guifont=Iosevka\ Term\ Light\ 12
   endif
 endif
 "}}}
@@ -340,3 +339,19 @@ map ,f :CtrlP<CR>
 " Mundo"{{{
 let g:mundo_preview_bottom = 1
 "}}}
+
+" https://www.reddit.com/r/vim/comments/2rz74u/question_because_of_matching_parenthesis/ "
+" This is adapted from
+" http://vim.wikia.com/wiki/Windo_and_restore_current_window
+"function! KeepWin(command)
+"  let currwin=winnr()
+"  execute a:command
+"  execute currwin . 'wincmd w'
+"endfunction
+"
+"augroup insertMatch
+"    au!
+"    au VimEnter * NoMatchParen
+"    au InsertEnter * call KeepWin("DoMatchParen")
+"    au InsertLeave * call KeepWin("NoMatchParen")
+"augroup END
