@@ -133,6 +133,9 @@ endif
 "nnoremap <silent> ,r :exec &nu==1 ? 'se nu!' : 'se rnu!'<CR>
 nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
+nnoremap <silent> ,j :.!python -m json.tool<CR>
+vnoremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
+nnoremap <silent> ,q :.s/\\"/"/g<CR>
 nnoremap <silent> <Leader>l :set list!<CR>
 nnoremap <silent> <Leader>w :set wrap! linebreak!<CR>
 nnoremap <silent> <Leader>c :set cuc!<CR>
@@ -282,6 +285,12 @@ au FileType billing-docker let b:vimpipe_command="docker exec -i billing_db mong
 au FileType billing,billing-dev,billing-docker set syntax=javascript ts=2 sw=2 et |
       \ let b:vimpipe_filetype="json" |
       \ execute "normal iDBQuery.shellBatchSize=300\<CR>\<Esc>"
+"}}}
+
+" ClickHouse clients"{{{
+au FileType clickhouse let b:vimpipe_command="curl -s 'http://db1-clickhouse:8123/?query=' --data-binary @-"
+au FileType clickhouse set syntax=sql ts=2 sw=2 et |
+      \ let b:vimpipe_filetype="sql"
 "}}}
 
 " Clojure"{{{
