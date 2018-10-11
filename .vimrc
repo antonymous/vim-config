@@ -159,6 +159,10 @@ nnoremap gQ <Nop>
 
 " Prevent accidental opening of Command-line window
 nnoremap q: <Nop>
+
+"http://vim.wikia.com/wiki/Comfortable_handling_of_registers
+nnoremap ,c :let @x=@" \| let @"=@+ \| let @+=@x<CR>
+nnoremap ,s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
 "}}}
 
 " syntastic"{{{
