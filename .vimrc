@@ -133,14 +133,14 @@ endif
 "nnoremap <silent> ,r :exec &nu==1 ? 'se nu!' : 'se rnu!'<CR>
 nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
-nnoremap <silent> ,j :.!python -m json.tool<CR>
-vnoremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
 nnoremap <silent> ,q :.s/\\"/"/g<CR>
 nnoremap <silent> <Leader>l :set list!<CR>
 nnoremap <silent> <Leader>w :set wrap! linebreak!<CR>
 nnoremap <silent> <Leader>c :set cuc!<CR>
 " nnoremap <silent> ,c :set cuc!<CR>
 nnoremap Y y$
+noremap <silent> ,j :.!python -m json.tool<CR>
+noremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
 cnoremap <M-C-n> <Down>
 cnoremap <M-C-p> <Up>
 
