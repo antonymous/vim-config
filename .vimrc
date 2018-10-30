@@ -135,11 +135,13 @@ nnoremap <silent> ,o o<ESC>
 nnoremap <silent> ,O O<ESC>
 nnoremap <silent> ,q :.s/\\"/"/g<CR>
 nnoremap <silent> <Leader>l :set list!<CR>
+nnoremap <silent> <Leader>m :MundoToggle<CR>
 nnoremap <silent> <Leader>w :set wrap! linebreak!<CR>
 nnoremap <silent> <Leader>c :set cuc!<CR>
 " nnoremap <silent> ,c :set cuc!<CR>
 nnoremap Y y$
-noremap <silent> ,j :.!python -m json.tool<CR>
+" noremap <silent> ,j :.!python -m json.tool<CR>
+noremap <silent> ,j :.!pretty_json<CR>
 noremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
 cnoremap <M-C-n> <Down>
 cnoremap <M-C-p> <Up>
@@ -163,6 +165,11 @@ nnoremap q: <Nop>
 "http://vim.wikia.com/wiki/Comfortable_handling_of_registers
 nnoremap ,c :let @x=@" \| let @"=@+ \| let @+=@x<CR>
 nnoremap ,s :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x<CR>
+
+"https://gist.github.com/atripes/15372281209daf5678cded1d410e6c16
+vnoremap <leader>en :!python -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
+vnoremap <leader>de :!python -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
+
 "}}}
 
 " syntastic"{{{
