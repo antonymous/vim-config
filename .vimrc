@@ -142,7 +142,8 @@ nnoremap <silent> <Leader>c :set cuc!<CR>
 nnoremap Y y$
 " noremap <silent> ,j :.!python -m json.tool<CR>
 noremap <silent> ,j :.!pretty_json<CR>
-noremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
+vnoremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
+nnoremap <silent> ,u :%s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
 cnoremap <M-C-n> <Down>
 cnoremap <M-C-p> <Up>
 
