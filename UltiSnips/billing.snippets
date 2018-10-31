@@ -1,0 +1,34 @@
+snippet find
+db.${0:Payout}.find({
+	$1
+}, {
+	$2
+})
+endsnippet
+
+snippet agg
+db.${0:Payout}.aggregate([
+    {
+      $match: {
+        $1
+      }
+    },
+    {
+      $group: {
+        _id: {
+          key: {
+            $2
+          }
+        },
+        ${3:count: \{\$sum: 1}},
+        ${4:ids: \{\$push: "\$_id"}}
+      }
+    }
+]).map(function (d) {
+  return {
+    key: d._id,
+    count: d.count,
+    ids: d.ids.map(e => e.valueOf()).join(', ')
+  };
+})
+endsnippet

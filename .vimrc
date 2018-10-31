@@ -151,10 +151,10 @@ cnoremap <M-C-p> <Up>
 cmap w!! %!sudo tee > /dev/null %
 
 " Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
 
 " Disable Ex-mode
 nnoremap Q <Nop>
@@ -210,12 +210,12 @@ let ft_stdout_mappings = {
       \'ledger': 'ledger balance ^assets --no-color'
       \}
 for ft_name in keys(ft_stdout_mappings)
-  execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write !' . ft_stdout_mappings[ft_name] . '<CR>'
+  execute 'autocmd FileType ' . ft_name . ' nnoremap <buffer> <C-\> :write !' . ft_stdout_mappings[ft_name] . '<CR>'
 endfor
 let ft_execute_mappings = {
       \}
 for ft_name in keys(ft_execute_mappings)
-  execute 'autocmd Filetype ' . ft_name . ' nnoremap <buffer> <C-\> :write \| !' . ft_execute_mappings[ft_name] . '<CR>'
+  execute 'autocmd FileType ' . ft_name . ' nnoremap <buffer> <C-\> :write \| !' . ft_execute_mappings[ft_name] . '<CR>'
 endfor
 "}}}
 
