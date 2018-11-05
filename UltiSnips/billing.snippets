@@ -1,34 +1,48 @@
 snippet find
-db.${0:Payout}.find({
-	$1
+db.${1:Payout}.find({
+	${2:_id: ${3:{
+		$in: [${VISUAL}]
+	}}}
 }, {
-	$2
+	$4
+})
+endsnippet
+
+snippet upd
+db.${1:Payout}.update({
+	${2:_id: ${VISUAL}}
+}, {
+	$set: {
+		$0
+	}
+}, {
+	multi: ${3:0}
 })
 endsnippet
 
 snippet agg
 db.${0:Payout}.aggregate([
-    {
-      $match: {
-        $1
-      }
-    },
-    {
-      $group: {
-        _id: {
-          key: {
-            $2
-          }
-        },
-        ${3:count: \{\$sum: 1}},
-        ${4:ids: \{\$push: "\$_id"}}
-      }
-    }
+	{
+		$match: {
+			$1
+		}
+	},
+	{
+		$group: {
+			_id: {
+				key: {
+					$2
+				}
+			},
+			${3:count: \{\$sum: 1}},
+			${4:ids: \{\$push: "\$_id"}}
+		}
+	}
 ]).map(function (d) {
-  return {
-    key: d._id,
-    count: d.count,
-    ids: d.ids.map(e => e.valueOf()).join(', ')
-  };
+	return {
+		key: d._id,
+		count: d.count,
+		ids: d.ids.map(e => e.valueOf()).join(', ')
+	};
 })
 endsnippet
