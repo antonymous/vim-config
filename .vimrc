@@ -307,6 +307,7 @@ au FileType clickhouse set syntax=sql ts=2 sw=2 et |
 
 " Clojure"{{{
 au FileType clojure nnoremap <buffer> <silent> <C-\> :%Eval<CR>
+au FileType clojure nnoremap <buffer> <silent> ,e :Eval<CR>
 " au FileType clojure RainbowParenthesesToggleAll
 au FileType clojure RainbowParenthesesLoadRound
 au FileType clojure RainbowParenthesesLoadSquare
