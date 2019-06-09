@@ -10,7 +10,7 @@ endsnippet
 
 snippet upd
 db.${1:Payout}.update({
-	${2:_id: ${VISUAL}}
+	${2:_id: ${3:${VISUAL}}}
 }, {
 	$set: {
 		$0
