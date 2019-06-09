@@ -140,6 +140,7 @@ nnoremap <silent> <Leader>w :set wrap! linebreak!<CR>
 nnoremap <silent> <Leader>c :set cuc!<CR>
 " nnoremap <silent> ,c :set cuc!<CR>
 nnoremap Y y$
+nnoremap <silent> <Leader>h :set hlsearch!<CR>
 " noremap <silent> ,j :.!python -m json.tool<CR>
 noremap <silent> ,j :.!pretty_json<CR>
 vnoremap <silent> ,u :s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g<CR>
@@ -223,6 +224,7 @@ endfor
 let g:vimpipe_silent=1
 let ft_vimpipe_commands = {
       \'php': 'php',
+      \'javascript': 'node',
       \'ledger': 'ledger balance ^assets --no-color'
       \}
 for ft_name in keys(ft_vimpipe_commands)
@@ -242,8 +244,9 @@ endfor
 
 " insert current date"{{{
 nnoremap <F5> "=strftime("%Y-%m-%d")<CR>
-inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
-iab <expr> curdate strftime("%Y-%m-%d")
+inoremap <F5> <C-R>=strftime("%A, %d.%m.%Y")<CR>
+iab <expr> cdate strftime("%A, %d.%m.%Y")
+iab <expr> тдата strftime("%A, %d.%m.%Y")
 "}}}
 
 " phpqa"{{{
