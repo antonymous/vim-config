@@ -28,6 +28,7 @@ endif
 " vim-opinion overrides"{{{
 " Folding"{{{
 set foldenable
+set history=1000
 "}}}
 " Search"{{{
 set nohlsearch " highlight search
