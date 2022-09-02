@@ -1,11 +1,57 @@
+snippet shell
+DBQuery.prototype._prettyShell = true
+DBQuery.shellBatchSize = 300
+endsnippet
+
+snippet addd
+additionalData: 1,
+endsnippet
+
+snippet cols
+show collections
+endsnippet
+
+snippet slave
+db.setSlaveOk();
+
+endsnippet
+
+snippet minago
+new Date(Date.now() - 1000 * 60 * ${1:1})
+endsnippet
+
+snippet uuid
+UUID().toString().split('"')[1]
+endsnippet
+
 snippet find
 db.${1:Payout}.find({
 	${2:_id: ${3:{
-		$in: [${VISUAL}]
+		$in: [${4:${VISUAL}}]
 	}}}
 }, {
-	$4
+	$5
 })
+endsnippet
+
+snippet lim
+sort({${1:_id}: ${2:-1}}).limit(${3:1})
+endsnippet
+
+snippet sort
+sort({${1:_id}: ${2:-1}}).limit(${3:1})
+endsnippet
+
+snippet id
+_id: $1
+endsnippet
+
+snippet in
+{$in: [$1]}
+endsnippet
+
+snippet cr
+createdInAffiliateAt: $1
 endsnippet
 
 snippet upd
@@ -20,6 +66,91 @@ db.${1:Payout}.update({
 })
 endsnippet
 
+snippet pupd
+db.Payout.updateMany({
+	_id: ${1:{
+		$in: [
+${2:${VISUAL}}		]
+	}},
+	status: '${3:error}'
+}, {
+	$set: {
+		status: '$4'
+	},
+	$unset: {
+		lockedAt: -1,
+	},
+	$push: {
+		statusLog: {
+			status: '$4',
+			previousStatus: '$3',
+			createdAt: new Date(),
+			comment: '${5:BILLING-$6}'
+		}
+	}
+});
+endsnippet
+
+snippet pupd1
+db.Payout.updateOne({
+	_id: ${1:{
+		$in: [
+${2:${VISUAL}}		]
+	}},
+	status: '${3:error}'
+}, {
+	$set: {
+		status: '$4'
+	},
+	$unset: {
+		lockedAt: -1,
+	},
+	$push: {
+		statusLog: {
+			status: '$4',
+			previousStatus: '$3',
+			createdAt: new Date(),
+			comment: '${5:BILLING-$6}'
+		}
+	}
+});
+endsnippet
+
+snippet pfixcomp
+const TRAN_REFS = {
+	${1:"payoutId": tranRef}
+};
+for (const payoutId in TRAN_REFS) {
+	db.Payout.updateOne({
+		_id: NumberLong(payoutId),
+		status: 'error'
+	}, {
+		$set: {
+			status: 'completed',
+			data: {
+				paymentSystem: '${2:UzcardApi}',
+				transactionReference: "" + TRAN_REFS[payoutId]
+			},
+		},
+		$unset: {
+			lockedAt: -1,
+		},
+		$push: {
+			statusLog: {
+				status: 'completed',
+				previousStatus: 'error',
+				createdAt: new Date(),
+				comment: '${3:BILLING-$4}'
+			}
+		}
+	})
+};
+endsnippet
+
+snippet ids
+map(d => d._id.valueOf()).join(', ')
+endsnippet
+
 snippet agg
 db.${0:Payout}.aggregate([
 	{
@@ -30,9 +161,7 @@ db.${0:Payout}.aggregate([
 	{
 		$group: {
 			_id: {
-				key: {
-					$2
-				}
+				$2
 			},
 			${3:count: \{\$sum: 1}},
 			${4:ids: \{\$push: "\$_id"}}
@@ -45,4 +174,275 @@ db.${0:Payout}.aggregate([
 		ids: d.ids.map(e => e.valueOf()).join(', ')
 	};
 })
+endsnippet
+
+snippet aggwait
+db.Payout.aggregate([
+	{
+		$match: {
+			status: 'waiting'
+		}
+	},
+	{
+		$addFields: {
+			psp: {$arrayElemAt: [{$objectToArray: {$cond: ['$viaGateway', '$paymentSystemGateway', '$billingPaymentSystem']}}, 1]}
+		}
+	},
+	{
+		$lookup: {
+			from: 'PaymentSystem',
+			localField: 'psp.v',
+			foreignField: '_id',
+			as: 'pspDoc'
+		}
+	},
+	{
+		$unwind: '$pspDoc'
+	},
+	{
+		$addFields: {
+			pspId: '$pspDoc._id',
+			pspCode: '$pspDoc.code'
+		}
+	},
+	{
+		$group: {
+			_id: {
+				pspId: '$pspId',
+				pspCode: '$pspCode',
+				ps: '$type',
+				aff: '$affiliateId',
+				sbe: '$statusBeforeError'
+			},
+			count: {$sum: 1},
+			ids: {$push: "$_id"}
+		}
+	},
+	{
+		$match: {
+			count: {$gt: ${1:0}}
+		}
+	},
+	{
+		$sort: {
+			count: -1
+		}
+	}
+]).map(function (d) {
+	return {
+		key: d._id,
+		count: d.count,
+		ids: d.ids.map(e => e.valueOf()).join(', ')
+	};
+});
+endsnippet
+
+snippet aggerr
+db.Payout.aggregate([
+	{
+		$match: {
+			status: 'error',
+			lockedAt: {$lte: new Date(Date.now() - 1000 * 60 * 2)}
+		}
+	},
+	{
+		$addFields: {
+			psp: {$arrayElemAt: [{$objectToArray: {$cond: ['$viaGateway', '$paymentSystemGateway', '$billingPaymentSystem']}}, 1]}
+		}
+	},
+	{
+		$lookup: {
+			from: 'PaymentSystem',
+			localField: 'psp.v',
+			foreignField: '_id',
+			as: 'pspDoc'
+		}
+	},
+	{
+		$unwind: '$pspDoc'
+	},
+	{
+		$addFields: {
+			pspId: '$pspDoc._id',
+			pspCode: '$pspDoc.code'
+		}
+	},
+	{
+		$group: {
+			_id: {
+				pspId: '$pspId',
+				pspCode: '$pspCode',
+				ps: '$type',
+				aff: '$affiliateId',
+				sbe: '$statusBeforeError'
+			},
+			count: {$sum: 1},
+			ids: {$push: "$_id"}
+		}
+	},
+	{
+		$match: {
+			count: {$gt: ${1:0}}
+		}
+	},
+	{
+		$sort: {
+			count: -1
+		}
+	}
+]).map(function (d) {
+	return {
+		key: d._id,
+		count: d.count,
+		ids: d.ids.map(e => e.valueOf()).join(', ')
+	};
+});
+endsnippet
+
+snippet aggpsp
+db.Payout.aggregate([
+	{
+		$match: {
+			status: '${2:error}',
+			${3:lockedAt: {$lte: new Date(Date.now() - 1000 * 60 * 2)}}
+		}
+	},
+	{
+		$addFields: {
+			psp: {$arrayElemAt: [{$objectToArray: {$cond: ['$viaGateway', '$paymentSystemGateway', '$billingPaymentSystem']}}, 1]}
+		}
+	},
+	{
+		$lookup: {
+			from: 'PaymentSystem',
+			localField: 'psp.v',
+			foreignField: '_id',
+			as: 'pspDoc'
+		}
+	},
+	{
+		$unwind: '$pspDoc'
+	},
+	{
+		$addFields: {
+			pspId: '$pspDoc._id',
+			pspCode: '$pspDoc.code'
+		}
+	},
+	{
+		$group: {
+			_id: {
+				pspId: '$pspId',
+				pspCode: '$pspCode',
+				ps: '$type',
+				aff: '$affiliateId',
+				sbe: '$statusBeforeError'
+			},
+			count: {$sum: 1},
+			ids: {$push: '$_id'},
+			min: {$min: '$acceptedAt'},
+			max: {$max: '$acceptedAt'}
+		}
+	},
+	{
+		$match: {
+			count: {$gt: ${1:0}}
+		}
+	},
+	{
+		$sort: {
+			count: -1
+		}
+	}
+]).map(function (d) {
+	return {
+		key: d._id,
+		count: d.count,
+		ids: d.ids.map(e => e.valueOf()).join(', ')
+	};
+});
+endsnippet
+
+snippet aggerrt
+var rows = db.Payout.aggregate([
+	{
+		$match: {
+			status: '${2:error}',
+			${3:lockedAt: {$lte: new Date(Date.now() - 1000 * 60 * 2)}}
+		}
+	},
+	{
+		$addFields: {
+			psp: {$arrayElemAt: [{$objectToArray: {$cond: ['$viaGateway', '$paymentSystemGateway', '$billingPaymentSystem']}}, 1]}
+		}
+	},
+	{
+		$lookup: {
+			from: 'PaymentSystem',
+			localField: 'psp.v',
+			foreignField: '_id',
+			as: 'pspDoc'
+		}
+	},
+	{
+		$unwind: '$pspDoc'
+	},
+	{
+		$addFields: {
+			pspId: '$pspDoc._id',
+			pspCode: '$pspDoc.code'
+		}
+	},
+	{
+		$group: {
+			_id: {
+				pspId: '$pspId',
+				pspCode: '$pspCode',
+				ps: '$type',
+				aff: '$affiliateId',
+				sbe: '$statusBeforeError'
+			},
+			count: {$sum: 1},
+			ids: {$push: '$_id'},
+			min: {$min: '$acceptedAt'},
+			max: {$max: '$acceptedAt'}
+		}
+	},
+	{
+		$match: {
+			count: {$gt: ${1:0}}
+		}
+	},
+	{
+		$sort: {
+			'_id.aff': 1,
+			count: -1
+		}
+	}
+]).map(d => {
+	let cols = [
+		d._id.aff,
+		d._id.pspCode + '(' + d._id.pspId + ')',
+		d._id.ps,
+		d._id.sbe,
+		d.count,
+		d.ids,
+	];
+
+	return '| ' + cols.join(' | ') + ' |';
+}).join('\n');
+
+var heads = [
+	'Клиент',
+	'Провайдер',
+	'Платежная система',
+	'Статус перед аварией',
+	'Количество',
+	'Заявки',
+];
+
+['| ' + heads.join(' | ') + ' |'].
+	concat(['|' + (new Array(heads.length)).fill('--').join('|') + '|']).
+	concat(rows).
+	join('\n');
 endsnippet
