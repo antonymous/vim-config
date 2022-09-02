@@ -113,6 +113,8 @@ if has('gui_running')
     set guifont=consolas:h10:cRUSSIAN
   elseif has('gui_gtk2')
     set guifont=Iosevka\ Term\ Light\ 12
+  else
+    set guifont=Iosevka\ Term\ Light\ 12
   endif
 endif
 "}}}
@@ -163,6 +165,8 @@ nnoremap Q <Nop>
 nnoremap gQ <Nop>
 
 " Prevent accidental opening of Command-line window
+" see also
+" https://stackoverflow.com/questions/43654089/vim-mapping-q-only-when-not-recording
 nnoremap q: <Nop>
 
 "http://vim.wikia.com/wiki/Comfortable_handling_of_registers
